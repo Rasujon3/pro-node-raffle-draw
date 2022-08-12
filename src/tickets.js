@@ -19,6 +19,15 @@ class TicketCollection {
     return ticket;
   }
 
+  createBulk(username, price, quantity) {
+    const result = [];
+    for (let i = 0; i < quantity; i++) {
+      const ticket = this.create(username, price);
+      result.push(ticket);
+    }
+    return result;
+  }
+
   /**
    * return all tickets from db
    */
@@ -74,6 +83,14 @@ class TicketCollection {
     return ticket;
   }
 
+  updateBulk(username, ticketBody) {
+    const userTickets = this.findByUsername(username);
+    const updatedTickets = userTickets.map((ticket) =>
+      this.updateById(ticket.id, ticketBody)
+    );
+    return updatedTickets;
+  }
+
   /**
    * delete ticket by id
    * @param {string} ticketId
@@ -93,6 +110,14 @@ class TicketCollection {
       this[tickets].splice(index, 1);
       return true;
     }
+  }
+
+  deleteBulk(username) {
+    const userTickets = this.findByUsername(username);
+    const deleteResult = userTickets.map((ticket) =>
+      this.deleteById(ticket.id)
+    );
+    return deleteResult;
   }
 }
 
