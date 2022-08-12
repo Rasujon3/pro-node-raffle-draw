@@ -119,6 +119,21 @@ class TicketCollection {
     );
     return deleteResult;
   }
+  draw(winnerCount) {
+    const winnerIndexes = new Array(winnerCount);
+    let winnerIndex = 0;
+    while (winnerIndex < winnerCount) {
+      let ticketIndex = Math.floor(Math.random() * this[tickets].length);
+      if (!winnerIndexes.includes(ticketIndex)) {
+        winnerIndexes[winnerIndex++] = ticketIndex;
+        continue;
+      } else {
+      }
+    }
+
+    const winners = winnerIndexes.map((index) => this[tickets][index]);
+    return winners;
+  }
 }
 
 const collection = new TicketCollection();
