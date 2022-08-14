@@ -5,3 +5,5 @@
 5. Return Ticket Collection
 6. Create Necessary Routes
 7. Ticket Collection Issue
+8. Create Ticket Model
+9. Update Ticket Controllers

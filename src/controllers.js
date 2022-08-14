@@ -19,3 +19,25 @@ exports.sellBulkTicket = (req, res) => {
     tickets,
   });
 };
+
+// find tickets controller
+
+exports.findAll = (req, res) => {
+  const tickets = ticketCollection.find();
+  res.status(200).json({ items: tickets, total: tickets.length });
+};
+
+exports.findById = (req, res) => {
+  const id = req.params.id;
+  const ticket = ticketCollection.findById(id);
+  if (!ticket) {
+    return res.status(404).json({ message: "404 not found" });
+  }
+  res.status(200).json(ticket);
+};
+
+exports.findByUsername = (req, res) => {
+  const username = req.params.username;
+  const tickets = ticketCollection.findByUsername(username);
+  res.status(200).json({ items: tickets, total: tickets.length });
+};
