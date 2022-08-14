@@ -3,3 +3,4 @@
 3. Implement Bulk Operations
 4. Create Draw Function
 5. Return Ticket Collection
+6. Create Necessary Routes
