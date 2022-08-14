@@ -6,13 +6,19 @@ const {
   findById,
   updateBId,
   updateByUsername,
+  deleteById,
+  deleteByUsename,
 } = require("./controllers");
 
 const router = require("express").Router();
 
-router.route("/t/:id").get(findById).put(updateBId).delete();
+router.route("/t/:id").get(findById).put(updateBId).delete(deleteById);
 
-router.route("/u/:username").get(findByUsername).put(updateByUsername).delete();
+router
+  .route("/u/:username")
+  .get(findByUsername)
+  .put(updateByUsername)
+  .delete(deleteByUsename);
 
 router.post("/bulk", sellBulkTicket);
 router.get("/draw");
