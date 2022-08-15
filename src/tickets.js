@@ -7,7 +7,7 @@ class TicketCollection {
   constructor() {
     (async function () {
       this[tickets] = await readFile();
-    }.bind(this));
+    }.call(this));
   }
   /**
    * create and save a new ticket
@@ -63,13 +63,13 @@ class TicketCollection {
    */
 
   findByUsername(username) {
-    const tickets = this[tickets].filter(
+    const userTickets = this[tickets].filter(
       /**
        * @param {Ticket} ticket
        */
       (ticket) => ticket.username === username
     );
-    return tickets;
+    return userTickets;
   }
 
   /**
