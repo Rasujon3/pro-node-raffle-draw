@@ -4,6 +4,7 @@ const dbPath = path.resolve("data", "db.json");
 
 exports.readFile = async () => {
   const data = await fs.readFile(dbPath);
+  console.log(data);
   return JSON.parse(data);
 };
 

@@ -5,7 +5,9 @@ const tickets = Symbol("tickets");
 
 class TicketCollection {
   constructor() {
-    this[tickets] = [];
+    (async function () {
+      this[tickets] = await readFile();
+    }.bind(this));
   }
   /**
    * create and save a new ticket
@@ -16,6 +18,7 @@ class TicketCollection {
   create(username, price) {
     const ticket = new Ticket(username, price);
     this[tickets].push(ticket);
+    writeFile(this[tickets]);
     return ticket;
   }
 
@@ -25,6 +28,7 @@ class TicketCollection {
       const ticket = this.create(username, price);
       result.push(ticket);
     }
+    writeFile(this[tickets]);
     return result;
   }
 
@@ -81,7 +85,7 @@ class TicketCollection {
       ticket.username = ticketBody.username ?? ticket.username;
       ticket.price = ticketBody.price ?? ticket.price;
     }
-
+    writeFile(this[tickets]);
     return ticket;
   }
 
@@ -90,6 +94,8 @@ class TicketCollection {
     const updatedTickets = userTickets.map((ticket) =>
       this.updateById(ticket.id, ticketBody)
     );
+
+    writeFile(this[tickets]);
     return updatedTickets;
   }
 
@@ -110,6 +116,7 @@ class TicketCollection {
       return false;
     } else {
       this[tickets].splice(index, 1);
+      writeFile(this[tickets]);
       return true;
     }
   }
@@ -119,6 +126,7 @@ class TicketCollection {
     const deleteResult = userTickets.map((ticket) =>
       this.deleteById(ticket.id)
     );
+    writeFile(this[tickets]);
     return deleteResult;
   }
   draw(winnerCount) {
